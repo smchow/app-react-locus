@@ -13,7 +13,11 @@ export default class App extends Component {
       super()
       this.state = {
          email: '',
-         password: ''
+         password: '',
+         loggedin:false,
+         student:true,
+         userid: '',
+         projectid:''
       }
    }
    updateEmail = (text) => {
@@ -27,14 +31,23 @@ export default class App extends Component {
    }
 
    render(){
-      return(
-         <View>
-            <Text> This is a Test </Text>
-            <Login
+      let showLogin = null;
+    
+    if (this.state.loggedin) {
+      showLogin =  
+        <View>
+        <Login
                updateEmail = {this.updateEmail}
                updatePassword = {this.updatePassword}
                login = {this.login}
             />
+        </View>
+      }
+      return(
+         <View>
+            {showLogin}
+          
+            
          </View>
       )
    }

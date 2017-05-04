@@ -22,6 +22,7 @@ export default Login = (props) => {
          <Text style = {styles.text}>Please enter you password:</Text>
          <TextInput
             style = {styles.input}
+            secureTextEntry={true}
             placeholder = 'Password'
             autoCapitalize = 'none'
             onChangeText = {props.updatePassword}
