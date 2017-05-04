@@ -16,7 +16,7 @@ export default ProjectList = (props) => {
             renderRow = {
                (rowData) => (
                   <Text style = {styles.listItem}>
-                     {rowData}
+                     {rowData.name}
                   </Text>
                )
             }

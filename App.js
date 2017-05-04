@@ -41,27 +41,36 @@ export default class App extends Component {
       this.setState({password: text})
    }
    login = () => {
-      alert('email: ' + this.state.email + ' password: ' + this.state.password)
+      //alert('email: ' + this.state.email + ' password: ' + this.state.password)
       //this.state.loggedin = true;
       this.setState({
-          loggedin : true
-      })
+          loggedin : true,
+          showProjects : true
+      });
    }
 
-  getProjects(){
-    console.log("test")
+  componentDidMount(){
     fetch("https://react-locus.herokuapp.com/view/1")
     .then(res => res.json())
     .then(projects => {
       console.log(projects[1]);
       this.setState({
-        projects : this.state.projects.cloneWithRows(projects)
+        dataSource : this.state.dataSource.cloneWithRows(projects)
       })
     })
   }
 
    render(){
       let showLogin = null;
+      let showProjects = null;
+
+      if (this.state.showProjects){
+        showProjects = 
+       <View>
+            <ProjectList dataSource = {this.state.dataSource} />
+         </View>
+      }
+    
     
     if (!this.state.loggedin) {
       showLogin =  
@@ -77,9 +86,8 @@ export default class App extends Component {
       return(
          <View>
             {showLogin}
-            <View>
-            <ProjectList dataSource = {this.state.dataSource} />
-         </View>
+            {showProjects}
+            
          </View>
       )
    }
