@@ -15,7 +15,7 @@ export default Login = (props) => {
          <Text style = {styles.text}>Please enter you email:</Text>
          <TextInput
             style = {styles.input}
-            placeholder = 'Email'
+            placeholder = 'Email'   
             autoCapitalize = 'none'
             onChangeText = {props.updateEmail}
          />
