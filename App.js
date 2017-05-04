@@ -5,7 +5,7 @@ import {
    Text
 } from 'react-native'
 
-import Main from './app/components/Main.js'
+import Login from './app/components/Login.js'
 
 
 export default class App extends Component {
@@ -30,7 +30,7 @@ export default class App extends Component {
       return(
          <View>
             <Text> This is a Test </Text>
-            <Main
+            <Login
                updateEmail = {this.updateEmail}
                updatePassword = {this.updatePassword}
                login = {this.login}
