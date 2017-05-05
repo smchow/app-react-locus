@@ -7,7 +7,9 @@ import {
    Button,
    Image,
    TouchableHighlight,
-   StyleSheet
+   StyleSheet,
+   ScrollView
+
 } from 'react-native'
 
 export default ProjectList = (props) => {
@@ -15,8 +17,13 @@ export default ProjectList = (props) => {
    return (
 
       <View>
+      <ScrollView style = {styles.listContainer}>
+
          <Text style = {styles.headerItem}> My Projects </Text>
          <ListView
+            automaticallyAdjustContentInsets={false}
+            initialListSize={9}
+
             style = {styles.listContainer}
             dataSource = {props.dataSource}
             renderRow = {
@@ -38,10 +45,12 @@ export default ProjectList = (props) => {
 
                       
                       </View> 
+
                      </View>
                )
             }
          />
+         </ScrollView>
       </View>
    )
 }
@@ -49,7 +58,9 @@ export default ProjectList = (props) => {
 const styles = StyleSheet.create ({
    listContainer: {
       paddingTop: 22,
-       backgroundColor:'lightblue'
+       backgroundColor:'lightblue',
+       
+
 
    },
    listItem: {
@@ -65,7 +76,7 @@ const styles = StyleSheet.create ({
       textAlign: 'center',
    },
    viewData: {
-     backgroundColor: 'pink',
+     backgroundColor: 'lightblue',
       width : 100,
       paddingBottom: 30,
       marginBottom:50
