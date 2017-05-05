@@ -34,6 +34,9 @@ export default class App extends Component {
          studentId: "2"
       }
    }
+    _handleData = (id) => {
+      alert('here');
+    }
    updateEmail = (text) => {
       this.setState({email: text})
    }
@@ -67,7 +70,10 @@ export default class App extends Component {
       if (this.state.showProjects){
         showProjects = 
        <View>
-            <ProjectList dataSource = {this.state.dataSource} />
+            <ProjectList 
+            dataSource = {this.state.dataSource} 
+            _handleData = {this.state._handleData}
+            />
          </View>
       }
     

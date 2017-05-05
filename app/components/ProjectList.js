@@ -10,7 +10,9 @@ import {
 } from 'react-native'
 
 export default ProjectList = (props) => {
+  
    return (
+
       <View>
          <Text style = {styles.headerItem}> My Projects </Text>
          <ListView
@@ -19,15 +21,16 @@ export default ProjectList = (props) => {
             renderRow = {
                (rowData) => (
                   <View style={styles.container}>
+                  <View>
                   <Text style = {styles.listItem}>
                      {rowData.name} {"\n"}
                      Description: {rowData.tagLine}
-            {/*rowData.image_url*/} 
                       </Text>
+      <Image source = {{uri: rowData.image_url}} style = {{ height: 200}} />
 
                       <Button title="View Data"
-                        onPress={() => this._handleData(rowData.id)}
-                      />
+                       onPress={props._handleData} 
+                      /></View> 
                      </View>
                )
             }
@@ -42,9 +45,10 @@ const styles = StyleSheet.create ({
    },
    listItem: {
       paddingBottom: 22,
-      fontSize: 30,
+      fontSize: 20,
       fontWeight: 'bold',
       textAlign: 'left',
+       backgroundColor:'lightblue'
 
    },
    headerItem: {
