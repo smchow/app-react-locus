@@ -28,18 +28,18 @@ export default ProjectList = (props) => {
             dataSource = {props.dataSource}
             renderRow = {
                (rowData) => (
+                  <View >
                   <View style={styles.container}>
-                  <View>
                   <Text style = {styles.listItem}>
-                     {rowData.name} {"\n"}
+                     <Text style= {styles.listHeaderItem}> {rowData.name} {"\n"}{"\n"}</Text>
                      Description: {rowData.tagLine}
                       </Text>
                       <TouchableHighlight 
-                       style = {styles.viewData}
+                       style = {styles.viewDataBox}
                        onPress={props.handleData} >
-                      <Text>
-               View Data
-            </Text>
+                      <Text style = {styles.viewDataText}> 
+                        View Data
+                        </Text>
          </TouchableHighlight>
       <Image source = {{uri: rowData.image_url}} style = {{ height: 200}} />
 
@@ -56,34 +56,60 @@ export default ProjectList = (props) => {
 }
 
 const styles = StyleSheet.create ({
-   listContainer: {
+      listContainer: {
       paddingTop: 22,
-       backgroundColor:'lightblue',
-       
-
-
+      backgroundColor:'lightblue', 
+      paddingBottom:30,
+   },
+   container:{
+      borderWidth: 3,
+      borderColor: 'darkblue',
+      borderStyle: 'solid',
+      //
+      justifyContent:'center',
+      paddingTop: 20,
+      borderTopLeftRadius: 5,
+      borderTopRightRadius : 5 
    },
    listItem: {
       paddingBottom: 32,
       fontSize: 20,
       fontWeight: 'bold',
-      textAlign: 'left'
+      textAlign: 'center',
+      alignItems:'center',
    },
-   headerItem: {
-      fontSize: 50,
-      marginTop: 50,
+   listHeaderItem: {
+      paddingBottom: 52,
+      fontSize: 30,
       fontWeight: 'bold',
       textAlign: 'center',
    },
-   viewData: {
-     backgroundColor: 'lightblue',
-      width : 100,
-      paddingBottom: 30,
-      marginBottom:50
+   headerItem: {
+      fontSize: 40,
+      marginTop: 40,
+      fontWeight: 'bold',
+      textAlign: 'center',
+   },
+   viewDataBox: {
+      backgroundColor: 'lightgreen',
+      marginBottom:10,
+      borderWidth: 1,
+      borderColor: 'darkblue',
+      borderStyle: 'solid',
+      borderTopLeftRadius: 10,
+      borderTopRightRadius : 10 ,
+      borderBottomLeftRadius: 10,
+      borderBottomRightRadius : 10 
+
+  },
+  viewDataText: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      textAlign: 'center',
   },
    button: {
       fontSize: 50,
-     backgroundColor: 'pink',
+      backgroundColor: 'pink',
       width : 80,
       paddingBottom: 30
   }

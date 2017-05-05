@@ -11,7 +11,7 @@ import {
 export default Login = (props) => {
    return (
       <View style = {styles.container}>
-          <Text style = {styles.title}> Welcome to Locus </Text>
+          <Text style = {styles.title}> Sign-In  </Text>
          <Text style = {styles.text}>Please enter you email:</Text>
          <TextInput
             style = {styles.input}
@@ -41,6 +41,8 @@ export default Login = (props) => {
 
 var styles = StyleSheet.create({
   container: {
+    flexDirection:'column',
+    alignItems:'center',
     justifyContent: 'center',
     marginTop: 50,
     padding: 20, 
@@ -48,7 +50,7 @@ var styles = StyleSheet.create({
     
   },
   title: {
-    fontSize: 30,
+    fontSize: 40,
     alignSelf: 'center',
     marginBottom: 30
   },
@@ -77,7 +79,16 @@ var styles = StyleSheet.create({
   },
    submit: {
       backgroundColor: 'skyblue',
-      width : 80,
-      padding: 10
+      width : 150,
+      padding: 10,
+      backgroundColor: 'lightgreen',
+      marginBottom:10,
+      borderWidth: 1,
+      borderColor: 'darkblue',
+      borderStyle: 'solid',
+      borderTopLeftRadius: 10,
+      borderTopRightRadius : 10 ,
+      borderBottomLeftRadius: 10,
+      borderBottomRightRadius : 10 
    }
 });
