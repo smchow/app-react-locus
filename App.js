@@ -15,9 +15,7 @@ export default class App extends Component {
    constructor(props) {
       super(props)
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      
-    };
+   
       this.state = {
          email: '',
          password: '',
@@ -34,7 +32,7 @@ export default class App extends Component {
          studentId: "2"
       }
    }
-    _handleData = (id) => {
+    handleData = () => {
       alert('here');
     }
    updateEmail = (text) => {
@@ -72,7 +70,8 @@ export default class App extends Component {
        <View>
             <ProjectList 
             dataSource = {this.state.dataSource} 
-            _handleData = {this.state._handleData}
+            handleData = {this.handleData.bind(this)}
+            
             />
          </View>
       }

@@ -6,6 +6,7 @@ import {
    Text,
    Button,
    Image,
+   TouchableHighlight,
    StyleSheet
 } from 'react-native'
 
@@ -26,11 +27,17 @@ export default ProjectList = (props) => {
                      {rowData.name} {"\n"}
                      Description: {rowData.tagLine}
                       </Text>
+                      <TouchableHighlight 
+                       style = {styles.viewData}
+                       onPress={props.handleData} >
+                      <Text>
+               View Data
+            </Text>
+         </TouchableHighlight>
       <Image source = {{uri: rowData.image_url}} style = {{ height: 200}} />
 
-                      <Button title="View Data"
-                       onPress={props._handleData} 
-                      /></View> 
+                      
+                      </View> 
                      </View>
                )
             }
@@ -41,20 +48,32 @@ export default ProjectList = (props) => {
 
 const styles = StyleSheet.create ({
    listContainer: {
-      paddingTop: 22
-   },
-   listItem: {
-      paddingBottom: 22,
-      fontSize: 20,
-      fontWeight: 'bold',
-      textAlign: 'left',
+      paddingTop: 22,
        backgroundColor:'lightblue'
 
+   },
+   listItem: {
+      paddingBottom: 32,
+      fontSize: 20,
+      fontWeight: 'bold',
+      textAlign: 'left'
    },
    headerItem: {
       fontSize: 50,
       marginTop: 50,
       fontWeight: 'bold',
       textAlign: 'center',
-   }
+   },
+   viewData: {
+     backgroundColor: 'pink',
+      width : 100,
+      paddingBottom: 30,
+      marginBottom:50
+  },
+   button: {
+      fontSize: 50,
+     backgroundColor: 'pink',
+      width : 80,
+      paddingBottom: 30
+  }
 })
