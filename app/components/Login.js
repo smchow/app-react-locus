@@ -10,12 +10,14 @@ import {
 
 export default Login = (props) => {
    return (
+    
       <View style = {styles.container}>
           <Text style = {styles.title}> Sign-In  </Text>
          <Text style = {styles.text}>Please enter you email:</Text>
          <TextInput
             style = {styles.input}
-            placeholder = 'Email'   
+            placeholder = 'Email'  
+            value  = 'guest@locus.com' 
             autoCapitalize = 'none'
             onChangeText = {props.updateEmail}
          />
@@ -23,6 +25,7 @@ export default Login = (props) => {
          <TextInput
             style = {styles.input}
             secureTextEntry={true}
+            value  = 'guest@locus.com' 
             placeholder = 'Password'
             autoCapitalize = 'none'
             onChangeText = {props.updatePassword}
