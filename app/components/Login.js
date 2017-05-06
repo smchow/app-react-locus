@@ -12,12 +12,12 @@ export default Login = (props) => {
    return (
     
       <View style = {styles.container}>
-          <Text style = {styles.title}> Sign-In  </Text>
+          <Text style = {styles.title}> Student Login </Text>
          <Text style = {styles.text}>Please enter you email:</Text>
          <TextInput
             style = {styles.input}
             placeholder = 'Email'  
-            value  = 'guest@locus.com' 
+            value  = 'juliah@google.com' 
             autoCapitalize = 'none'
             onChangeText = {props.updateEmail}
          />
@@ -33,7 +33,7 @@ export default Login = (props) => {
          <TouchableHighlight
             style = {styles.submit}
             onPress = { () => props.login(props.email, props.password)}>
-            <Text>
+            <Text style={{marginLeft:40}}>
                Submit
             </Text>
          </TouchableHighlight>
@@ -47,13 +47,11 @@ var styles = StyleSheet.create({
     flexDirection:'column',
     alignItems:'center',
     justifyContent: 'center',
-    marginTop: 50,
-    padding: 20, 
-    backgroundColor:'lightblue',
-    
+    marginTop: 10,
+    padding: 50, 
   },
   title: {
-    fontSize: 40,
+    fontSize: 25,
     alignSelf: 'center',
     marginBottom: 30
   },
@@ -72,7 +70,7 @@ var styles = StyleSheet.create({
   },
   button: {
     height: 36,
-    backgroundColor: '#48BBEC',
+    backgroundColor: '#78bcaf',
     borderColor: '#48BBEC',
     borderWidth: 1,
     borderRadius: 8,
@@ -81,10 +79,11 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
    submit: {
-      backgroundColor: 'skyblue',
+      justifyContent: 'center',
       width : 150,
       padding: 10,
-      backgroundColor: 'lightgreen',
+      marginLeft: 20,
+      backgroundColor: '#78bcaf',
       marginBottom:10,
       borderWidth: 1,
       borderColor: 'darkblue',

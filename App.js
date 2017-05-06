@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, ListView , Image, StyleSheet } from 'react-native';
 import { Constants } from 'expo';
+import Login from './app/components/Login.js';
 
 export default class App extends Component {
     constructor() {
@@ -8,7 +9,10 @@ export default class App extends Component {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       projects: ds.cloneWithRows([]),
-      studentId: "3"
+      studentId: "3",
+      showProjects: false,
+      loggedin: false,
+
     };
   }
 
@@ -24,30 +28,41 @@ export default class App extends Component {
       })
     })
   }
+
+    updateEmail = (text) => {
+      this.setState({email: text})
+   }
+   updatePassword = (text) => {
+      this.setState({password: text})
+   }
+   login = () => {
+      //alert('email: ' + this.state.email + ' password: ' + this.state.password)
+      //this.state.loggedin = true;
+      this.setState({
+          loggedin : true,
+          showProjects : true
+      });
+}
   
   render() {
-    return (
+    let showProjects = null;
+    let showLogin = null;
 
-      <View style={styles.container}>
-  
-        <View style={{flex: 0.25, flexDirection: 'row'}}>
-         <View style={styles.header}> 
-           <Image
-              style={{
-                width: 100,
-                height: 100,
-                resizeMode: 'contain',
-                //borderColor: 'black', 
-                //borderStyle: 'solid',
-                borderWidth: 1,}}
-              source={{uri: 'https://locus-image-store.s3.amazonaws.com/locus.png'}}
+     if (!this.state.loggedin) {
+      showLogin =  
+        <View>
+        <Login
+               updateEmail = {this.updateEmail}
+               updatePassword = {this.updatePassword}
+               login = {this.login}
+               // getProjects = {this.getProjects}
             />
-          <Text style={styles.h2}> Locus</Text>
-         </View>
         </View>
+} 
 
-       
-        <ListView
+    if (this.state.showProjects){
+      showProjects = 
+       <ListView
           dataSource={this.state.projects}
           renderRow = {
               (rowData) => (
@@ -72,6 +87,29 @@ export default class App extends Component {
           }
         //listview
         /> 
+    }
+    return (
+
+      <View style={styles.container}>
+  
+        <View style={{flex: 0.25, flexDirection: 'row'}}>
+         <View style={styles.header}> 
+           <Image
+              style={{
+                width: 100,
+                height: 100,
+                resizeMode: 'contain',
+                //borderColor: 'black', 
+                //borderStyle: 'solid',
+                borderWidth: 1,}}
+              source={{uri: 'https://locus-image-store.s3.amazonaws.com/locus.png'}}
+            />
+          <Text style={styles.h2}> SHARING SCIENCE GLOBALLY</Text>
+         </View>
+        </View>
+        {showLogin}
+       {showProjects}
+       
 
    <View style={{flexDirection: 'row', backgroundColor: '#78bcaf', height: 50, alignItems:'center',}}>
    <Text style={{marginLeft:120}}> constant coders 2017</Text>
@@ -89,12 +127,12 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
   },
   h2: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold',
     justifyContent: 'space-between',
     marginTop:35,
     marginRight:55,
-    marginLeft: 20,
+    marginLeft: 0,
     color: '#2c3e50',
   },
   header:{
