@@ -15,7 +15,6 @@ export default class App extends Component {
   componentDidMount(){
     console.log("test")
     let url = "https://react-locus.herokuapp.com/view/" + this.state.studentId ;
-    alert(url);
     fetch(url)
     .then(res => res.json())
     .then(projects => {
@@ -31,7 +30,7 @@ export default class App extends Component {
 
       <View style={styles.container}>
   
-        <View style={{flex: 0.3, flexDirection: 'row'}}>
+        <View style={{flex: 0.25, flexDirection: 'row'}}>
          <View style={styles.header}> 
            <Image
               style={{
@@ -60,7 +59,7 @@ export default class App extends Component {
               borderWidth: 1,
               }}>
                   <Image style={{width: 100, height: 100, justifyContent:'flex-start'}}
-                   source={{uri: 'https://s3.amazonaws.com/locus-image-store/astronomy.jpg'}}
+                   source={{uri: rowData.image_url}}
                   />
             
          
@@ -74,7 +73,8 @@ export default class App extends Component {
         //listview
         /> 
 
-   <View style={{flexDirection: 'row', backgroundColor: '#78bcaf', height: 70}}>
+   <View style={{flexDirection: 'row', backgroundColor: '#78bcaf', height: 50, alignItems:'center',}}>
+   <Text style={{marginLeft:120}}> constant coders 2017</Text>
    </View>
 
       </View> //container
