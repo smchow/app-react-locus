@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ListView , Image, StyleSheet } from 'react-native';
+import { Text, View, ListView , Image, StyleSheet, TouchableHighlight } from 'react-native';
 import { Constants } from 'expo';
 import Login from './app/components/Login.js';
 
@@ -9,6 +9,7 @@ export default class App extends Component {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       projects: ds.cloneWithRows([]),
+      notes: ds.cloneWithRows([]),
       studentId: "3",
       showProjects: false,
       loggedin: false,
@@ -43,6 +44,18 @@ export default class App extends Component {
           showProjects : true
       });
 }
+  showNotes = (id) => {
+
+     console.log("test")
+    fetch("https://react-locus.herokuapp.com/viewnotes/1")
+    .then(res => res.json())
+    .then(notes => {
+      console.log(notes[1]);
+      this.setState({
+      notes : this.state.notes.cloneWithRows(notes)
+      })
+    })
+  }
   
   render() {
     let showProjects = null;
@@ -62,6 +75,7 @@ export default class App extends Component {
 
     if (this.state.showProjects){
       showProjects = 
+
        <ListView
           dataSource={this.state.projects}
           renderRow = {
@@ -78,12 +92,20 @@ export default class App extends Component {
                   />
             
          
-                  <Text style= {styles.listHeaderItem}> {rowData.name} {"\n"}{"\n"}
-                  <Text style = {styles.listItem}> Description: {rowData.tagLine}</Text>
+                  <Text style= {styles.listHeaderItem}> Project: {rowData.name} {"\n"}{"\n"}
+                  <Text style = {styles.listItem}> Description: {rowData.tagLine}{"\n"}
+                        Announcements: {rowData.current_announcements}{"\n"}
                   </Text>
-            
+                  
+                  </Text>
+                  <Text > {"\n"}{"\n"}</Text>
+                  
+              
               </View>
+             
+
               )
+
           }
         //listview
         /> 
@@ -144,7 +166,21 @@ const styles = StyleSheet.create({
     //justifyContent: 'space-around',
     
     //padding: 10,
-  },
+  },submit: {
+      justifyContent: 'center',
+      width : 150,
+      padding: 10,
+      marginLeft: 20,
+      backgroundColor: '#78bcaf',
+      marginBottom:10,
+      borderWidth: 1,
+      borderColor: 'darkblue',
+      borderStyle: 'solid',
+      borderTopLeftRadius: 10,
+      borderTopRightRadius : 10 ,
+      borderBottomLeftRadius: 10,
+      borderBottomRightRadius : 10 
+   },
   listItem: {
       fontSize: 12,
       fontWeight: 'bold',
@@ -157,6 +193,8 @@ const styles = StyleSheet.create({
    listHeaderItem: {
       fontSize: 14,
       fontWeight: 'bold',
+      marginLeft: 10,
+      //: 'center',
 
    },
 });
