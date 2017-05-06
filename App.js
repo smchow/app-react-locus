@@ -31,14 +31,14 @@ export default class App extends Component {
 
       <View style={styles.container}>
   
-        <View style={{flex: 1, flexDirection: 'row'}}>
+        <View style={{flex: 0.3, flexDirection: 'row'}}>
          <View style={styles.header}> 
            <Image
               style={{
                 width: 100,
                 height: 100,
                 resizeMode: 'contain',
-                borderColor: 'black', 
+                //borderColor: 'black', 
                 //borderStyle: 'solid',
                 borderWidth: 1,}}
               source={{uri: 'https://locus-image-store.s3.amazonaws.com/locus.png'}}
