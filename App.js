@@ -1,41 +1,36 @@
-import React, { Component } from 'react'
-
-import {
-   View, 
-   ListView,
-   Text
-} from 'react-native'
-
-import Login from './app/components/Login.js'
-import ProjectList from './app/components/ProjectList.js'
-//import Projects from './app/components/Projects.js'
-
+import React, { Component } from 'react';
+import { Text, View, ListView , Image, StyleSheet, TouchableHighlight } from 'react-native';
+import { Constants } from 'expo';
+import Login from './app/components/Login.js';
 
 export default class App extends Component {
-   constructor(props) {
-      super(props)
-      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-   
-      this.state = {
-         email: '',
-         password: '',
-         loggedin:false,
-         showProjects :false,
-         student:true,
-         userid: '',
-         projectid:'',
-         //projects: ds.cloneWithRows([]),
-         dataSource: ds.cloneWithRows([
-            'Item1', 'Item2', 'Item3', 'Item4', 'Item5', 'Item6', 'Item7', 'Item8', 
-               'Item9', 'Item10'
-         ]),
-         studentId: "2"
-      }
-   }
-    handleData = () => {
-      alert('here');
-    }
-   updateEmail = (text) => {
+    constructor() {
+    super();
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {
+      projects: ds.cloneWithRows([]),
+      notes: ds.cloneWithRows([]),
+      studentId: "3",
+      showProjects: false,
+      loggedin: false,
+
+    };
+  }
+
+  componentDidMount(){
+    console.log("test")
+    let url = "https://react-locus.herokuapp.com/view/" + this.state.studentId ;
+    fetch(url)
+    .then(res => res.json())
+    .then(projects => {
+      console.log(projects[1]);
+      this.setState({
+        projects : this.state.projects.cloneWithRows(projects)
+      })
+    })
+  }
+
+    updateEmail = (text) => {
       this.setState({email: text})
    }
    updatePassword = (text) => {
@@ -48,36 +43,25 @@ export default class App extends Component {
           loggedin : true,
           showProjects : true
       });
-   }
+}
+  showNotes = (id) => {
 
-  componentDidMount(){
-    fetch("https://react-locus.herokuapp.com/view/1")
+     console.log("test")
+    fetch("https://react-locus.herokuapp.com/viewnotes/1")
     .then(res => res.json())
-    .then(projects => {
-      console.log(projects[1]);
+    .then(notes => {
+      console.log(notes[1]);
       this.setState({
-        dataSource : this.state.dataSource.cloneWithRows(projects)
+      notes : this.state.notes.cloneWithRows(notes)
       })
     })
   }
+  
+  render() {
+    let showProjects = null;
+    let showLogin = null;
 
-   render(){
-      let showLogin = null;
-      let showProjects = null;
-
-      if (this.state.showProjects){
-        showProjects = 
-       <View>
-            <ProjectList 
-            dataSource = {this.state.dataSource} 
-            handleData = {this.handleData.bind(this)}
-            
-            />
-         </View>
-      }
-    
-    
-    if (!this.state.loggedin) {
+     if (!this.state.loggedin) {
       showLogin =  
         <View>
         <Login
@@ -87,13 +71,130 @@ export default class App extends Component {
                // getProjects = {this.getProjects}
             />
         </View>
-      } 
-      return(
-         <View>
-            {showLogin}
-            {showProjects}
+} 
+
+    if (this.state.showProjects){
+      showProjects = 
+
+       <ListView
+          dataSource={this.state.projects}
+          renderRow = {
+              (rowData) => (
+              <View style={{flex: 1, 
+              flexDirection: 'row', 
+              paddingTop: 5,
+              borderColor: 'black', 
+              borderStyle: 'solid',
+              borderWidth: 1,
+              }}>
+                  <Image style={{width: 100, height: 100, justifyContent:'flex-start'}}
+                   source={{uri: rowData.image_url}}
+                  />
             
+         
+                  <Text style= {styles.listHeaderItem}> Project: {rowData.name} {"\n"}{"\n"}
+                  <Text style = {styles.listItem}> Description: {rowData.tagLine}{"\n"}
+                        Announcements: {rowData.current_announcements}{"\n"}
+                  </Text>
+                  
+                  </Text>
+                  <Text > {"\n"}{"\n"}</Text>
+                  
+              
+              </View>
+             
+
+              )
+
+          }
+        //listview
+        /> 
+    }
+    return (
+
+      <View style={styles.container}>
+  
+        <View style={{flex: 0.25, flexDirection: 'row'}}>
+         <View style={styles.header}> 
+           <Image
+              style={{
+                width: 100,
+                height: 100,
+                resizeMode: 'contain',
+                //borderColor: 'black', 
+                //borderStyle: 'solid',
+                borderWidth: 1,}}
+              source={{uri: 'https://locus-image-store.s3.amazonaws.com/locus.png'}}
+            />
+          <Text style={styles.h2}> SHARING SCIENCE GLOBALLY</Text>
          </View>
-      )
-   }
+        </View>
+        {showLogin}
+       {showProjects}
+       
+
+   <View style={{flexDirection: 'row', backgroundColor: '#78bcaf', height: 50, alignItems:'center',}}>
+   <Text style={{marginLeft:120}}> constant coders 2017</Text>
+   </View>
+
+      </View> //container
+    ); //return
+  }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
+  },
+  h2: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    justifyContent: 'space-between',
+    marginTop:35,
+    marginRight:55,
+    marginLeft: 0,
+    color: '#2c3e50',
+  },
+  header:{
+    //alignSelf: 'strech',
+    flexDirection: 'row',
+    backgroundColor: '#78bcaf',
+    //textAlign: 'center',
+    flex:1,
+    //justifyContent: 'space-around',
+    
+    //padding: 10,
+  },submit: {
+      justifyContent: 'center',
+      width : 150,
+      padding: 10,
+      marginLeft: 20,
+      backgroundColor: '#78bcaf',
+      marginBottom:10,
+      borderWidth: 1,
+      borderColor: 'darkblue',
+      borderStyle: 'solid',
+      borderTopLeftRadius: 10,
+      borderTopRightRadius : 10 ,
+      borderBottomLeftRadius: 10,
+      borderBottomRightRadius : 10 
+   },
+  listItem: {
+      fontSize: 12,
+      fontWeight: 'bold',
+      flex: 1,
+      flexDirection: "row",
+      borderColor: 'black', 
+      borderStyle: 'solid',
+      borderWidth: 1,
+   },
+   listHeaderItem: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      marginLeft: 10,
+      //: 'center',
+
+   },
+});
